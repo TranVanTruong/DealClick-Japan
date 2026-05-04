@@ -29,6 +29,7 @@ Edit `.env.local`:
 
 ```bash
 RAKUTEN_APP_ID=your_real_rakuten_application_id
+RAKUTEN_ACCESS_KEY=your_real_rakuten_access_key
 RAKUTEN_AFFILIATE_ID=optional_affiliate_id
 ```
 
@@ -60,6 +61,7 @@ npm i -g vercel
 vercel login
 vercel
 vercel env add RAKUTEN_APP_ID
+vercel env add RAKUTEN_ACCESS_KEY
 vercel env add RAKUTEN_AFFILIATE_ID
 vercel --prod
 ```
@@ -78,3 +80,21 @@ Project Settings → Environment Variables.
    - `/search?keyword=コスメ クーポン`
    - `/search?keyword=家電 セール`
    - `/search?keyword=食品 送料無料`
+
+
+## Rakuten new API note
+
+Rakuten's newer Web Service API flow requires both:
+
+```bash
+RAKUTEN_APP_ID
+RAKUTEN_ACCESS_KEY
+```
+
+The API endpoint used by this project is:
+
+```bash
+https://openapi.rakuten.co.jp/ichibams/api/IchibaItem/Search/20260401
+```
+
+Do not confuse these values with Rakuten Affiliate ID. Affiliate ID is optional and used for monetization links.

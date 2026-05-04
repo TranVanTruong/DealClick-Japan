@@ -3,17 +3,18 @@ import { keywordForCategory, normalizeRakutenItems } from "@/lib/rakuten";
 
 export const dynamic = "force-dynamic";
 
-const RAKUTEN_ENDPOINT = "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601";
+const RAKUTEN_ENDPOINT = "https://openapi.rakuten.co.jp/ichibams/api/IchibaItem/Search/20260401";
 
 export async function GET(request: NextRequest) {
   const appId = process.env.RAKUTEN_APP_ID;
   const affiliateId = process.env.RAKUTEN_AFFILIATE_ID;
+  const accessKey = process.env.RAKUTEN_ACCESS_KEY;
 
-  if (!appId) {
+  if (!appId || !accessKey) {
     return NextResponse.json(
       {
-        error: "Missing RAKUTEN_APP_ID",
-        message: "Set RAKUTEN_APP_ID in .env.local or Vercel Environment Variables."
+        error: "Missing Rakuten credentials",
+        message: "Set both RAKUTEN_APP_ID and RAKUTEN_ACCESS_KEY in .env.local or Vercel Environment Variables."
       },
       { status: 500 }
     );
@@ -28,6 +29,7 @@ export async function GET(request: NextRequest) {
 
   const params = new URLSearchParams({
     applicationId: appId,
+    accessKey,
     format: "json",
     keyword,
     hits,
